@@ -1,4 +1,4 @@
-server_id = [SERVER_ID_HERE]
+server_id = [1234567890]
 
 print(server_id)
 input("Press enter to continue...")
