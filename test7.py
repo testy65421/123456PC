@@ -1,2 +1,2 @@
-server_id = '4204204206969669696969'
+server_id = '420'
 g = [int(server_id)]
